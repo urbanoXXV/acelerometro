@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Datos;
 
-class SetDatacontroller extends Controller
+class SetDataController extends Controller
 {
     /**
      * Display a listing of the resource.
