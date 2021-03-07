@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\SetDataController;
 |
 */
 
-Route::apiResource('/SetData', SetDataController::class);
+Route::apiResource('SetData', SetDataController::class);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
