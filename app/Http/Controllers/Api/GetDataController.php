@@ -24,7 +24,7 @@ class GetDataController extends Controller
             $i = 1;
             foreach ($internos as $interno) {
                 if ($i <= 200) {
-                    $i = $i++;
+                    $i = $i+1;
                     continue;
                 } else {
                     $valor['tiempo'] = $interno->tiempo;
@@ -32,7 +32,7 @@ class GetDataController extends Controller
                     $valor['y'] = $interno->y;
                     $valor['z'] = $interno->z;
                     array_push($rpta, $valor);
-                    $i = $i++;
+                    $i = $i+1;
                 }
             }
         }
