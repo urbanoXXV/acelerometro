@@ -24,6 +24,7 @@ class GetDataController extends Controller
             $i = 1;
             foreach ($internos as $interno) {
                 if ($i <= 200) {
+                    $i = $i++;
                     continue;
                 } else {
                     $valor['tiempo'] = $interno->tiempo;
