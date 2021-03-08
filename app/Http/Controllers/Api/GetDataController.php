@@ -15,8 +15,22 @@ class GetDataController extends Controller
      */
     public function index()
     {
-        $datos = Datos::select('etiqueta', 'data')->get();
-        return $datos;
+        $datos = Datos::select('id', 'etiqueta', 'data')->get();
+        $rpta = [];
+        foreach ($datos as $data) {
+            $valor['id'] = $data->id;
+            $valor['etiqueta'] = $data->etiqueta;
+            $internos = json_decode($data->data);
+            foreach ($internos as $interno) {
+                $valor['tiempo'] = $interno->tiempo;
+                $valor['x'] = $interno->x;
+                $valor['y'] = $interno->y;
+                $valor['z'] = $interno->z;
+                array_push($rpta, $valor);
+            }
+            //$valor['datos'] = json_decode($data->data);
+        }
+        return $rpta;
     }
 
     /**
