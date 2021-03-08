@@ -21,14 +21,17 @@ class GetDataController extends Controller
             $valor['id'] = $data->id;
             $valor['etiqueta'] = $data->etiqueta;
             $internos = json_decode($data->data);
+            $i = 1;
             foreach ($internos as $interno) {
-                $valor['tiempo'] = $interno->tiempo;
-                $valor['x'] = $interno->x;
-                $valor['y'] = $interno->y;
-                $valor['z'] = $interno->z;
-                array_push($rpta, $valor);
+                if ($i <= 200) {
+                    $valor['tiempo'] = $interno->tiempo;
+                    $valor['x'] = $interno->x;
+                    $valor['y'] = $interno->y;
+                    $valor['z'] = $interno->z;
+                    array_push($rpta, $valor);
+                    $i = $i++;
+                }
             }
-            //$valor['datos'] = json_decode($data->data);
         }
         return $rpta;
     }
