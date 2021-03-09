@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SetDataController;
 use App\Http\Controllers\Api\GetDataController;
+use App\Http\Controllers\Api\GetActividadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\Api\GetDataController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::apiResource('GetActividad', GetActividadController::class);
 Route::apiResource('GetData', GetDataController::class);
 Route::apiResource('SetData', SetDataController::class);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
