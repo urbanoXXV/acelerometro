@@ -25,11 +25,13 @@ class GetActividadController extends Controller
      */
     public function store(Request $request)
     {
-        $datos = json_decode($request->data);
+        $datos = $request->data;
+        #return $datos;
+        #exit();
         foreach ($datos as $dato) {
-            $x[] = $dato->x;
-            $y[] = $dato->y;
-            $z[] = $dato->z;
+            $x[] = $dato['x'];
+            $y[] = $dato['y'];
+            $z[] = $dato['z'];
         }
 
         $script = "modelo.py";
