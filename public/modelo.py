@@ -23,7 +23,7 @@ vZ = np.array(z)
 vZ = vZ.astype(np.float)
 
 fX = np.fft.fft(vX)
-fY = np.fft.fft(vX)
+fY = np.fft.fft(vY)
 fZ = np.fft.fft(vZ)
 
 inputX = np.abs(fX[0:len(vX)//2])
