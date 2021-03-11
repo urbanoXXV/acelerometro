@@ -52,6 +52,7 @@
                         <button class="btn btn-success" onclick="predecir()">Predecir</button>
                         <h3 id="prediccion"></h3>
                         <h3 id="datos"></h3>
+                        <h3 id="respuesta"></h3>
                     </div>
                     <div class="col-12 col-md-4"></div>
                 </div>
@@ -66,6 +67,7 @@
         var z = document.getElementById("z")
         var prediccion = document.getElementById("prediccion")
         var d = document.getElementById("datos")
+        var r = document.getElementById("respuesta")
         
         /*let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
@@ -92,7 +94,7 @@
         function enviar() {
             let acel = new Accelerometer({frequency: 60});
             acel.addEventListener('reading', () => {
-                //x.innerHTML = "<h4>"+acel.x+"</h4>"
+                x.innerHTML = "<h4>"+acel.x+"</h4>"
                 pre['x'] = acel.x
                 pre['y'] = acel.y
                 pre['z'] = acel.z
@@ -100,6 +102,7 @@
                 prediccion.innerHTML = datos.length + "veces"
                 if(datos.length == 30) {
                     d.innerHTML = "se llego"
+                    acel.stop();
                     axios({
                         method: 'post',
                         url: 'https://acelerometro.codigorural.com/api/GetActividad',
@@ -108,11 +111,11 @@
                         }
                     })
                     .then(function (response) {
-                        prediccion.innerHTML = response.data
+                        r.innerHTML = response
                         console.log(response.data)
                     })
                     .catch(function (error) {
-                        prediccion.innerHTML = error
+                        r.innerHTML = error
                         console.log(error);
                     });
                 }
