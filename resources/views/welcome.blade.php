@@ -49,8 +49,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success" onclick="enviar()">Predecir</button>
+                        <button class="btn btn-success" onclick="predecir()">Predecir</button>
                         <h3 id="prediccion"></h3>
+                        <h3 id="datos"></h3>
                     </div>
                     <div class="col-12 col-md-4"></div>
                 </div>
@@ -61,10 +62,11 @@
         var y = document.getElementById("y")
         var z = document.getElementById("z")
         var prediccion = document.getElementById("prediccion")
+        var d = document.getElementById("datos")
 
         
         
-        let acl = new Accelerometer({frequency: 1});
+        /*let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
             console.log("Acceleration along the X-axis " + acl.x);
             x.innerHTML = "<h4>"+acl.x+"</h4>"
@@ -73,27 +75,30 @@
             console.log("Acceleration along the Z-axis " + acl.z);
             z.innerHTML = "<h4>"+acl.z+"</h4>"
         });
-        acl.start();
+        acl.start();*/
 
         function predecir() {
             //doy un tiempo de 3 segundos hasta que empiece a leer
-            setTimeout(() => {  enviar() }, 3000);
+            setTimeout(() => {  enviar() }, 2000);
         }
         
         function enviar() {
             let datos = []
+            prediccion.innerHTML = "holi"
             let acel = new Accelerometer({frequency: 60});
             acel.addEventListener('reading', () => {
                 /*console.log("Acceleration along the X-axis " + acel.x);
                 console.log("Acceleration along the Y-axis " + acel.y);
                 console.log("Acceleration along the Z-axis " + acel.z);
-                x.innerHTML = "<h4>"+acel.x+"</h4>"
+                
                 y.innerHTML = "<h4>"+acel.y+"</h4>"
                 z.innerHTML = "<h4>"+acel.z+"</h4>"*/
+                x.innerHTML = "<h4>"+acel.x+"</h4>"
                 pre['x'] = acel.x
                 pre['y'] = acel.x
                 pre['z'] = acel.x
                 datos.push(pre)
+                d.innerHTML(datos.length)
                 if(datos.length == 30) {
                     axios({
                         method: 'post',
