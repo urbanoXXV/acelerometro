@@ -64,7 +64,7 @@
 
         
         
-        let acl = new Accelerometer({frequency: 100});
+        let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
             console.log("Acceleration along the X-axis " + acl.x);
             x.innerHTML = "<h4>"+acl.x+"</h4>"
@@ -81,8 +81,8 @@
         }
         
         function enviar() {
-            let datos = [] 
-            let acel = new Accelerometer({frequency: 100});
+            let datos = []
+            let acel = new Accelerometer({frequency: 60});
             acel.addEventListener('reading', () => {
                 /*console.log("Acceleration along the X-axis " + acel.x);
                 console.log("Acceleration along the Y-axis " + acel.y);
@@ -103,7 +103,7 @@
                         }
                     })
                     .then(function (response) {
-                        prediccion.innetHTML = response.data
+                        prediccion.innerHTML = response.data
                         console.log(response.data)
                     });
                 }
