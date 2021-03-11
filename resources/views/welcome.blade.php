@@ -24,7 +24,16 @@
     </head>
     <body>
             <div class="container">
-                <div class="row">
+                <div class="row mt-2">
+                    <div class="col-3">
+                        <img src="{{url('/uni.png')}}" alt="Image" class="w-100"/>
+                    </div>
+                    <div class="col-9 text-center">
+                        <b>UNIVERSIDAD NACIONAL DE INGENIERIA</b>
+                        <p>PC 2 - Aprendizaje Automatico</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
                     <div class="col-12 col-md-4"></div>
                     <div class="col-12 col-md-4">
                         <table class="table">
@@ -49,13 +58,15 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-success" onclick="predecir()">Predecir</button>
+                        
                         <h3 id="prediccion"></h3>
-                        <h3 id="datos"></h3>
-                        <h3 id="respuesta"></h3>
-                        <h3 id="enviada"></h3>
                     </div>
                     <div class="col-12 col-md-4"></div>
+                </div>
+                <div class="row d-flex justify-content-center mt-2">
+                    <div class="col-8 d-grid gap-2">
+                        <button class="btn btn-success" type="button" onclick="predecir()">Predecir</button>
+                    </div>
                 </div>
             </div>
     </body>
@@ -69,16 +80,12 @@
         var prediccion = document.getElementById("prediccion")
         var d = document.getElementById("datos")
         var r = document.getElementById("respuesta")
-        var e = document.getElementById("enviada")
         
         let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
-            console.log("Acceleration along the X-axis " + acl.x);
-            x.innerHTML = "<h4>"+acl.x+"</h4>"
-            console.log("Acceleration along the Y-axis " + acl.y);
-            y.innerHTML = "<h4>"+acl.y+"</h4>"
-            console.log("Acceleration along the Z-axis " + acl.z);
-            z.innerHTML = "<h4>"+acl.z+"</h4>"
+            x.innerHTML = acl.x
+            y.innerHTML = acl.y
+            z.innerHTML = acl.z
         });
         acl.start();
         
@@ -93,19 +100,18 @@
             let contador = 1
             let acel = new Accelerometer({frequency: 100});
             acel.addEventListener('reading', () => {
-                x.innerHTML = "<h4>"+acel.x+"</h4>"
-                y.innerHTML = "<h4>"+acel.y+"</h4>"
-                z.innerHTML = "<h4>"+acel.z+"</h4>"
+                x.innerHTML = acel.x
+                y.innerHTML = acel.y
+                z.innerHTML = acel.z
                 if(contador > 300) {
                     pre['x'] = acel.x
                     pre['y'] = acel.y
                     pre['z'] = acel.z
                     datos.push(JSON.parse(JSON.stringify(pre)))
-                    prediccion.innerHTML = datos.length + "veces"
+                    //prediccion.innerHTML = datos.length + "veces"
                 }
                 contador = contador + 1
                 if(datos.length == 30) {
-                    d.innerHTML = "se llego"
                     acel.stop();
                     axios({
                         method: 'post',
@@ -115,13 +121,19 @@
                         }
                     })
                     .then(function (response) {
-                        e.innerHTML = JSON.stringify(datos);
                         datos = []
-                        r.innerHTML = response.data
+                        if(response.data == 1) {
+                            r.innerHTML = "Sentado"
+                        } else if(response.data == 2) {
+                            r.innerHTML = "Caminando"
+                        } else if(response.data == 3) {
+                            r.innerHTML = "Saltando"
+                        } else if(response.data == 4) {
+                            r.innerHTML = "Otros"
+                        }
                         console.log(response.data)
                     })
                     .catch(function (error) {
-                        e.innerHTML = JSON.stringify(datos);
                         datos = []
                         r.innerHTML = error
                         console.log(error);

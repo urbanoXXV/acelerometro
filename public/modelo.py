@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import pandas as pd
 
-filename = str('finalized_model.sav')
+filename = str('Modelo_1103.sav')
 loaded_model = pickle.load(open(filename, 'rb'))
 
 if len(sys.argv) == 91:
