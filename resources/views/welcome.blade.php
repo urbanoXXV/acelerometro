@@ -8,6 +8,8 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
         <!-- Styles -->
         <style>
@@ -20,17 +22,49 @@
             }
         </style>
     </head>
-    <body class="antialiased">
-        <div id="x"></div>
-        <div id="y"></div>
-        <div id="z"></div>
+    <body>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4"></div>
+                    <div class="col-12 col-md-4">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                <th scope="col">Eje</th>
+                                <th scope="col">Valor (100Hz)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">X</th>
+                                    <td><div id="x"></div></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Y</th>
+                                    <td><div id="y"></div></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Z</th>
+                                    <td><div id="z"></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-success" onclick="enviar()">Predecir</button>
+                        <h3 id="prediccion"></h3>
+                    </div>
+                    <div class="col-12 col-md-4"></div>
+                </div>
+            </div>
     </body>
     <script>
         var x = document.getElementById("x")
         var y = document.getElementById("y")
         var z = document.getElementById("z")
+        var prediccion = document.getElementById("prediccion")
+
         
-        let acl = new Accelerometer({frequency: 60});
+        
+        let acl = new Accelerometer({frequency: 100});
         acl.addEventListener('reading', () => {
             console.log("Acceleration along the X-axis " + acl.x);
             x.innerHTML = "<h4>"+acl.x+"</h4>"
@@ -40,5 +74,41 @@
             z.innerHTML = "<h4>"+acl.z+"</h4>"
         });
         acl.start();
+
+        function predecir() {
+            //doy un tiempo de 3 segundos hasta que empiece a leer
+            setTimeout(() => {  enviar() }, 3000);
+        }
+        
+        function enviar() {
+            let datos = [] 
+            let acel = new Accelerometer({frequency: 100});
+            acel.addEventListener('reading', () => {
+                /*console.log("Acceleration along the X-axis " + acel.x);
+                console.log("Acceleration along the Y-axis " + acel.y);
+                console.log("Acceleration along the Z-axis " + acel.z);
+                x.innerHTML = "<h4>"+acel.x+"</h4>"
+                y.innerHTML = "<h4>"+acel.y+"</h4>"
+                z.innerHTML = "<h4>"+acel.z+"</h4>"*/
+                pre['x'] = acel.x
+                pre['y'] = acel.x
+                pre['z'] = acel.x
+                datos.push(pre)
+                if(datos.length == 30) {
+                    axios({
+                        method: 'post',
+                        url: 'https://acelerometro.codigorural.com/api/GetActividad',
+                        data: {
+                            data: datos,
+                        }
+                    })
+                    .then(function (response) {
+                        prediccion.innetHTML = response.data
+                        console.log(response.data)
+                    });
+                }
+            });
+            acel.start();
+        }
     </script>
 </html>

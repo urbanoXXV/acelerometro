@@ -49,7 +49,7 @@ class GetActividadController extends Controller
 
         $a = exec("python3 ".$script);
 
-        return $a." - "."python ".$script;
+        return $a;//." - "."python ".$script;
     }
 
     /**
