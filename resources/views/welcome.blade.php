@@ -111,7 +111,7 @@
                         }
                     })
                     .then(function (response) {
-                        r.innerHTML = response
+                        r.innerHTML = response.data
                         console.log(response.data)
                     })
                     .catch(function (error) {
