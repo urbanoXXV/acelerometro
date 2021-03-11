@@ -58,13 +58,14 @@
             </div>
     </body>
     <script>
+        let datos = []
+        let pre = {}
+
         var x = document.getElementById("x")
         var y = document.getElementById("y")
         var z = document.getElementById("z")
         var prediccion = document.getElementById("prediccion")
         var d = document.getElementById("datos")
-
-        
         
         let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
@@ -74,6 +75,11 @@
             y.innerHTML = "<h4>"+acl.y+"</h4>"
             console.log("Acceleration along the Z-axis " + acl.z);
             z.innerHTML = "<h4>"+acl.z+"</h4>"
+            pre['x'] = acl.x
+            pre['y'] = acl.y
+            pre['z'] = acl.z
+            datos.push(pre)
+            prediccion.innerHTML = datos.length + "veces"
         });
         acl.start();
         
