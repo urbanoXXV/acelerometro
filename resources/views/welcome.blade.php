@@ -91,7 +91,7 @@
         
         function enviar() {
             let contador = 1
-            let acel = new Accelerometer({frequency: 105});
+            let acel = new Accelerometer({frequency: 100});
             acel.addEventListener('reading', () => {
                 x.innerHTML = "<h4>"+acel.x+"</h4>"
                 y.innerHTML = "<h4>"+acel.y+"</h4>"
@@ -100,7 +100,7 @@
                     pre['x'] = acel.x
                     pre['y'] = acel.y
                     pre['z'] = acel.z
-                    datos.push(pre)
+                    datos.push(JSON.parse(JSON.stringify(pre)))
                     prediccion.innerHTML = datos.length + "veces"
                 }
                 contador = contador + 1
