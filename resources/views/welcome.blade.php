@@ -115,13 +115,13 @@
                         }
                     })
                     .then(function (response) {
-                        e.innerHTML = datos
+                        e.innerHTML = JSON.stringify(datos);
                         datos = []
                         r.innerHTML = response.data
                         console.log(response.data)
                     })
                     .catch(function (error) {
-                        e.innerHTML = datos
+                        e.innerHTML = JSON.stringify(datos);
                         datos = []
                         r.innerHTML = error
                         console.log(error);
