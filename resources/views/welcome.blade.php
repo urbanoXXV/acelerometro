@@ -92,16 +92,18 @@
         }
         
         function enviar() {
-            //let contador = 1
-            let acel = new Accelerometer({frequency: 10});
+            let contador = 1
+            let acel = new Accelerometer({frequency: 100});
             acel.addEventListener('reading', () => {
                 x.innerHTML = "<h4>"+acel.x+"</h4>"
-                pre['x'] = acel.x
-                pre['y'] = acel.y
-                pre['z'] = acel.z
-                datos.push(pre)
-                prediccion.innerHTML = datos.length + "veces"
-                //contador = contador + 1
+                if(contador > 300) {
+                    pre['x'] = acel.x
+                    pre['y'] = acel.y
+                    pre['z'] = acel.z
+                    datos.push(pre)
+                    prediccion.innerHTML = datos.length + "veces"
+                }
+                contador = contador + 1
                 if(datos.length == 30) {
                     d.innerHTML = "se llego"
                     acel.stop();
