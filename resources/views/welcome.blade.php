@@ -58,14 +58,19 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
-                        <h3 id="prediccion"></h3>
                     </div>
                     <div class="col-12 col-md-4"></div>
                 </div>
                 <div class="row d-flex justify-content-center mt-2">
                     <div class="col-8 d-grid gap-2">
                         <button class="btn btn-success" type="button" onclick="predecir()">Predecir</button>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div id="respuesta">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -77,8 +82,6 @@
         var x = document.getElementById("x")
         var y = document.getElementById("y")
         var z = document.getElementById("z")
-        var prediccion = document.getElementById("prediccion")
-        var d = document.getElementById("datos")
         var r = document.getElementById("respuesta")
         
         let acl = new Accelerometer({frequency: 1});
@@ -97,18 +100,18 @@
         }
         
         function enviar() {
+            r.innerHTML = ""
             let contador = 1
             let acel = new Accelerometer({frequency: 100});
             acel.addEventListener('reading', () => {
                 x.innerHTML = acel.x
                 y.innerHTML = acel.y
                 z.innerHTML = acel.z
-                if(contador > 300) {
+                if(contador > 200) {
                     pre['x'] = acel.x
                     pre['y'] = acel.y
                     pre['z'] = acel.z
                     datos.push(JSON.parse(JSON.stringify(pre)))
-                    //prediccion.innerHTML = datos.length + "veces"
                 }
                 contador = contador + 1
                 if(datos.length == 30) {
@@ -123,13 +126,13 @@
                     .then(function (response) {
                         datos = []
                         if(response.data == 1) {
-                            r.innerHTML = "Sentado"
+                            r.innerHTML = '<div class="alert alert-danger text-center" role="alert"><b>SENTADO</b></div>'
                         } else if(response.data == 2) {
-                            r.innerHTML = "Caminando"
+                            r.innerHTML = '<div class="alert alert-danger text-center" role="alert"><b>CAMINANDO</b></div>'
                         } else if(response.data == 3) {
-                            r.innerHTML = "Saltando"
+                            r.innerHTML = '<div class="alert alert-danger text-center" role="alert"><b>SALTANDO</b></div>'
                         } else if(response.data == 4) {
-                            r.innerHTML = "Otros"
+                            r.innerHTML = '<div class="alert alert-danger text-center" role="alert"><b>OTROS</b></div>'
                         }
                         console.log(response.data)
                     })
