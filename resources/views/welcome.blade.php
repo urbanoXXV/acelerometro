@@ -66,7 +66,7 @@
 
         
         
-        /*let acl = new Accelerometer({frequency: 1});
+        let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
             console.log("Acceleration along the X-axis " + acl.x);
             x.innerHTML = "<h4>"+acl.x+"</h4>"
@@ -75,7 +75,8 @@
             console.log("Acceleration along the Z-axis " + acl.z);
             z.innerHTML = "<h4>"+acl.z+"</h4>"
         });
-        acl.start();*/
+        acl.start();
+        
 
         function predecir() {
             //doy un tiempo de 3 segundos hasta que empiece a leer
@@ -84,8 +85,10 @@
         
         function enviar() {
             let datos = []
+            let pre = {}
             prediccion.innerHTML = "holi"
             let acel = new Accelerometer({frequency: 60});
+            console.log(acel)
             acel.addEventListener('reading', () => {
                 /*console.log("Acceleration along the X-axis " + acel.x);
                 console.log("Acceleration along the Y-axis " + acel.y);
