@@ -53,6 +53,7 @@
                         <h3 id="prediccion"></h3>
                         <h3 id="datos"></h3>
                         <h3 id="respuesta"></h3>
+                        <h3 id="enviada"></h3>
                     </div>
                     <div class="col-12 col-md-4"></div>
                 </div>
@@ -68,6 +69,7 @@
         var prediccion = document.getElementById("prediccion")
         var d = document.getElementById("datos")
         var r = document.getElementById("respuesta")
+        var e = document.getElementById("enviada")
         
         let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
@@ -89,7 +91,7 @@
         
         function enviar() {
             let contador = 1
-            let acel = new Accelerometer({frequency: 120});
+            let acel = new Accelerometer({frequency: 105});
             acel.addEventListener('reading', () => {
                 x.innerHTML = "<h4>"+acel.x+"</h4>"
                 y.innerHTML = "<h4>"+acel.y+"</h4>"
@@ -113,10 +115,14 @@
                         }
                     })
                     .then(function (response) {
+                        e.innerHTML = datos
+                        datos = []
                         r.innerHTML = response.data
                         console.log(response.data)
                     })
                     .catch(function (error) {
+                        e.innerHTML = datos
+                        datos = []
                         r.innerHTML = error
                         console.log(error);
                     });
