@@ -69,7 +69,7 @@
         var d = document.getElementById("datos")
         var r = document.getElementById("respuesta")
         
-        /*let acl = new Accelerometer({frequency: 1});
+        let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
             console.log("Acceleration along the X-axis " + acl.x);
             x.innerHTML = "<h4>"+acl.x+"</h4>"
@@ -83,19 +83,22 @@
             datos.push(pre)
             prediccion.innerHTML = datos.length + "veces"
         });
-        acl.start();*/
+        acl.start();
         
 
         function predecir() {
-            //doy un tiempo de 3 segundos hasta que empiece a leer
-            setTimeout(() => {  enviar() }, 2000);
+            acl.stop()
+            //doy un tiempo de 2 segundos hasta que empiece a leer
+            setTimeout(() => {  enviar() }, 1000);
         }
         
         function enviar() {
             let contador = 1
-            let acel = new Accelerometer({frequency: 100});
+            let acel = new Accelerometer({frequency: 120});
             acel.addEventListener('reading', () => {
                 x.innerHTML = "<h4>"+acel.x+"</h4>"
+                y.innerHTML = "<h4>"+acel.y+"</h4>"
+                z.innerHTML = "<h4>"+acel.z+"</h4>"
                 if(contador > 300) {
                     pre['x'] = acel.x
                     pre['y'] = acel.y
