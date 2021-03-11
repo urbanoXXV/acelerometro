@@ -77,11 +77,6 @@
             y.innerHTML = "<h4>"+acl.y+"</h4>"
             console.log("Acceleration along the Z-axis " + acl.z);
             z.innerHTML = "<h4>"+acl.z+"</h4>"
-            pre['x'] = acl.x
-            pre['y'] = acl.y
-            pre['z'] = acl.z
-            datos.push(pre)
-            prediccion.innerHTML = datos.length + "veces"
         });
         acl.start();
         
