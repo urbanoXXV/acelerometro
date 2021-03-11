@@ -67,7 +67,7 @@
         var prediccion = document.getElementById("prediccion")
         var d = document.getElementById("datos")
         
-        let acl = new Accelerometer({frequency: 1});
+        /*let acl = new Accelerometer({frequency: 1});
         acl.addEventListener('reading', () => {
             console.log("Acceleration along the X-axis " + acl.x);
             x.innerHTML = "<h4>"+acl.x+"</h4>"
@@ -81,7 +81,7 @@
             datos.push(pre)
             prediccion.innerHTML = datos.length + "veces"
         });
-        acl.start();
+        acl.start();*/
         
 
         function predecir() {
@@ -90,25 +90,16 @@
         }
         
         function enviar() {
-            let datos = []
-            let pre = {}
-            prediccion.innerHTML = "holi"
             let acel = new Accelerometer({frequency: 60});
-            console.log(acel)
             acel.addEventListener('reading', () => {
-                /*console.log("Acceleration along the X-axis " + acel.x);
-                console.log("Acceleration along the Y-axis " + acel.y);
-                console.log("Acceleration along the Z-axis " + acel.z);
-                
-                y.innerHTML = "<h4>"+acel.y+"</h4>"
-                z.innerHTML = "<h4>"+acel.z+"</h4>"*/
-                x.innerHTML = "<h4>"+acel.x+"</h4>"
+                //x.innerHTML = "<h4>"+acel.x+"</h4>"
                 pre['x'] = acel.x
-                pre['y'] = acel.x
-                pre['z'] = acel.x
+                pre['y'] = acel.y
+                pre['z'] = acel.z
                 datos.push(pre)
-                d.innerHTML(datos.length)
+                prediccion.innerHTML = datos.length + "veces"
                 if(datos.length == 30) {
+                    d.innerHTML = "se llego"
                     axios({
                         method: 'post',
                         url: 'https://acelerometro.codigorural.com/api/GetActividad',
