@@ -105,6 +105,10 @@
                     .then(function (response) {
                         prediccion.innerHTML = response.data
                         console.log(response.data)
+                    })
+                    .catch(function (error) {
+                        prediccion.innerHTML = error
+                        console.log(error);
                     });
                 }
             });
